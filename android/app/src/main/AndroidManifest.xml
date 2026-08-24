@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+      Play Console'da "Permissions Declaration Form" ile
+      "Caller ID, spam detection, and/or spam blocking" istisnasından
+      başvurulur. Bu istisna, varsayılan SMS uygulaması OLMADAN da bu
+      izinlerin kullanılmasına izin verir; onay garantisi yoktur ve her
+      sürümde yeniden değerlendirilebilir.
+    -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!--
+      Varsayılan SMS uygulaması olmak için gerekenler. Bu rol alındığında
+      Play'in "Permissions Declaration Form" süreci de kolaylaşır:
+      "varsayılan SMS işleyicisi" SMS izinleri için onaylı bir kullanımdır,
+      ayrı bir spam-filtresi istisnası dilekçesinden daha güvenilir yol.
+    -->
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_MMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- Akşam spam özeti alarmı, yeniden başlatmadan sonra da kurulsun. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!--
+      Telefon donanımı GERÇEKTEN zorunlu: SMS alamayan bir cihazda (SIM'siz
+      tablet, ChromeOS) Bekçi'nin yapacağı hiçbir şey yok. `required="true"`
+      Play'in uygulamayı bu cihazlara hiç göstermemesini sağlar — kullanıcıyı
+      kurup "neden çalışmıyor" dedirtmektense listede hiç göstermemek dürüst.
+      Beyan edilmezse izin bunu zaten örtük olarak ima ediyor; açıkça yazmak
+      niyeti belgeliyor.
+    -->
+    <uses-feature android:name="android.hardware.telephony" android:required="true" />
+
+    <application
+        android:name=".BekciApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.Bekci"
+        android:supportsRtl="true">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+          Bekçi VARSAYILAN DEĞİLKEN çalışan yol. Mesajı sınıflandırıp uyarır
+          ama gelen kutusundan ayıklayamaz. Varsayılanken bu alıcı kendini
+          devre dışı bırakır (SmsReceiver içindeki çift işleme koruması).
+        -->
+        <receiver
+            android:name=".sms.SmsReceiver"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter android:priority="999">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <!--
+          ── Varsayılan SMS uygulaması olabilmek için ZORUNLU 4 BİLEŞEN ──
+
+          Android, bu dördü birden bildirmeyen bir uygulamayı varsayılan
+          seçenekleri arasında HİÇ göstermez. Biri eksikse ayarlarda Bekçi
+          listede görünmez ve neden görünmediğine dair bir hata da alınmaz.
+        -->
+
+        <!-- 1) Gelen SMS. Yalnızca varsayılan uygulamaya gönderilir ve
+             mesajı sağlayıcıya yazmak artık bizim sorumluluğumuzdur. -->
+        <receiver
+            android:name=".sms.SmsDeliverReceiver"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_DELIVER" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 2) Gelen MMS. Şu an İŞLENMİYOR — bkz. MmsReceiver açıklaması.
+             Bildirilmesi zorunlu olduğu için var. -->
+        <receiver
+            android:name=".sms.MmsReceiver"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_WAP_PUSH">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.WAP_PUSH_DELIVER" />
+                <data android:mimeType="application/vnd.wap.mms-message" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 3) "Mesaj gönder" niyetleri: başka uygulamalar bir numaraya
+             SMS yazmak istediğinde Bekçi'ye düşer. -->
+        <activity
+            android:name=".ComposeActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SENDTO" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+        </activity>
+
+        <!--
+          Akşam spam özeti. Her spam için ayrı bildirim atmak, engellemeye
+          çalıştığımız rahatsızlığın aynısını üretirdi; günde bir kez
+          toplanıp söyleniyor.
+        -->
+        <receiver android:name=".sms.SpamDigestReceiver" android:exported="false" />
+
+        <receiver android:name=".sms.BootReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 4) Aramayı "mesajla yanıtla" ile reddetme. -->
+        <service
+            android:name=".sms.RespondViaMessageService"
+            android:exported="true"
+            android:permission="android.permission.SEND_RESPOND_VIA_MESSAGE">
+            <intent-filter>
+                <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+        </service>
+    </application>
+</manifest>

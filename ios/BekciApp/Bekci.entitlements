@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!--
+      App Group, uygulama ile filtre uzantısının kuralları paylaştığı tek
+      kanaldır. `RuleStore.appGroup` ile BİREBİR aynı olmak zorunda;
+      ayrışırsa uzantı kuralları okuyamaz ve kullanıcının beyaz/kara
+      listesi sessizce etkisiz kalır.
+
+      Akış tek yönlüdür: uygulama YAZAR, uzantı OKUR — Apple, filtre
+      uzantısının paylaşılan konteynere yazmasına izin vermiyor.
+    -->
+    <key>com.apple.security.application-groups</key>
+    <array>
+        <string>group.tr.bekci.shared</string>
+    </array>
+</dict>
+</plist>

@@ -1,0 +1,29 @@
+# ── İmzalama sırları ────────────────────────────────────────────────
+# Bunlar ASLA sürüm kontrolüne girmemeli. Keystore kaybedilirse Play
+# Store'a bir daha güncelleme yayınlanamaz; ayrı bir yerde yedeklenmeli.
+*.jks
+*.keystore
+keystore.properties
+android/local.properties
+
+# ── Derleme çıktıları ───────────────────────────────────────────────
+build/
+.gradle/
+android/app/release/
+*.apk
+*.aab
+
+# ── iOS ─────────────────────────────────────────────────────────────
+# .xcodeproj `project.yml`den üretilir (xcodegen generate), depoda tutulmaz.
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+.build/
+*.ipa
+
+# ── Araç/işletim sistemi artıkları ──────────────────────────────────
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

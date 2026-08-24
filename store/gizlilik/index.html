@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bekçi — Gizlilik Politikası ve Aydınlatma Metni</title>
+<style>
+  :root{
+    --paper:#F6F4EF; --ink:#12161C; --guard:#0F6B4F; --signal:#B93A2B;
+    --text2:#5D584F; --text3:#8B8578; --line:rgba(18,22,28,.13); --card:#fff;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#0D1116; --ink:#EFEDE7; --guard:#3FA37C; --signal:#E2705E;
+      --text2:#A8A399; --text3:#77726A; --line:rgba(255,255,255,.12); --card:#161C24;
+    }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:44rem; margin:0 auto; padding:3rem 1.25rem 5rem}
+  header{display:flex; align-items:center; gap:.85rem; margin-bottom:2rem}
+  header svg{width:44px; height:48px; flex:none}
+  h1{font-size:1.55rem; line-height:1.25; margin:0; letter-spacing:-.02em}
+  .sub{color:var(--text3); font-size:.85rem; margin-top:.15rem}
+  h2{font-size:1.1rem; margin:2.4rem 0 .6rem; letter-spacing:-.01em}
+  p{margin:.7rem 0; color:var(--text2)}
+  strong{color:var(--ink)}
+  ul{margin:.7rem 0; padding-left:1.15rem; color:var(--text2)}
+  li{margin:.35rem 0}
+  .lead{font-size:1.05rem; color:var(--ink); border-left:3px solid var(--guard);
+        padding-left:1rem; margin:1.5rem 0}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px;
+        padding:1.1rem 1.25rem; margin:1.2rem 0}
+  .card.warn{border-color:var(--signal)}
+  .card h3{margin:0 0 .4rem; font-size:.95rem; color:var(--signal)}
+  .card.ok h3{color:var(--guard)}
+  footer{margin-top:3.5rem; padding-top:1.2rem; border-top:1px solid var(--line);
+         color:var(--text3); font-size:.85rem}
+  a{color:var(--guard)}
+  code{background:var(--line); padding:.1rem .35rem; border-radius:4px; font-size:.85em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <svg viewBox="0 0 100 100" aria-hidden="true">
+    <path d="M50 9 16 21v28c0 23 14 37 34 43 20-6 34-20 34-43V21Z" fill="#0F6B4F"/>
+    <rect x="38" y="34" width="24" height="30" rx="5" fill="none" stroke="#F6F4EF" stroke-width="4.5"/>
+    <circle cx="50" cy="49" r="4.5" fill="#F6F4EF"/>
+  </svg>
+  <div>
+    <h1>Gizlilik Politikası ve Aydınlatma Metni</h1>
+    <div class="sub">Bekçi · Son güncelleme: 22 Ağustos 2026</div>
+  </div>
+</header>
+
+<p class="lead">
+  Bekçi'nin sunucusu yoktur. Uygulama internet izni bile istemez —
+  Android sürümünün izin listesinde <code>INTERNET</code> yer almaz.
+  Mesajlarınız telefonunuzdan çıkmaz.
+</p>
+
+<h2>1. Toplanan veriler</h2>
+<p>
+  <strong>Hiçbir kişisel veri toplanmaz.</strong> Bekçi'nin sunucusu, hesap
+  sistemi, analitiği veya reklam altyapısı yoktur. Kayıt olmanız istenmez.
+  Uygulama üçüncü taraf izleme (tracking) kitaplığı içermez.
+</p>
+
+<h2>2. Cihazınızda saklananlar</h2>
+<p>
+  Aşağıdakiler <strong>yalnızca telefonunuzda</strong> tutulur ve hiçbir
+  yere gönderilmez:
+</p>
+<ul>
+  <li><strong>Mesajlar.</strong> Android'de Bekçi varsayılan mesaj
+      uygulaması olarak çalıştığında, mesajlar telefonun kendi sistem SMS
+      deposuna yazılır. Uygulamanın kendi kaydı ise şifrelidir
+      (EncryptedSharedPreferences).</li>
+  <li><strong>Kurallarınız.</strong> Güvenli/engelli gönderen listeleriniz,
+      engellediğiniz kelimeler ve duyarlılık tercihiniz.</li>
+  <li><strong>Onay kaydı.</strong> Varsayılan uygulama olma onayını ne zaman
+      ve hangi metin sürümü için verdiğiniz.</li>
+</ul>
+
+<h2>3. Mesajlar nasıl işleniyor</h2>
+<p>
+  Sınıflandırma <strong>tamamen cihaz içinde</strong>, kural tabanlı bir
+  motorla yapılır. Mesaj metni hiçbir sunucuya, yapay zekâ servisine veya
+  üçüncü tarafa gönderilmez. Motor; bağlantı yapısı, gönderen tipi, BTK
+  operatör B kodu ve Türkçe kelime kalıpları gibi sinyallere bakar.
+</p>
+
+<h2>4. İzinler ve neden gerekli</h2>
+<ul>
+  <li><strong>SMS alma ve okuma</strong> — gelen mesajı sınıflandırmak ve
+      konuşma geçmişinizi göstermek için.</li>
+  <li><strong>SMS gönderme</strong> — konuşma ekranından yanıt yazabilmeniz
+      ve aramayı "mesajla yanıtla" ile reddedebilmeniz için.</li>
+  <li><strong>Kişiler</strong> — numara yerine kayıtlı ismi göstermek için.
+      Rehberiniz okunur ama hiçbir yere gönderilmez.</li>
+  <li><strong>Bildirimler</strong> — yeni mesaj ve dolandırıcılık uyarısı için.</li>
+</ul>
+
+<h2>5. Gönüllü spam bağışı</h2>
+<div class="card ok">
+  <h3>Ayrı ve açık rıza</h3>
+  <p style="margin:0">
+    Uygulamadaki "Spam bağışla" ekranında bir metni bizimle paylaşmayı
+    seçebilirsiniz. Bu <strong>tamamen isteğe bağlıdır</strong> ve ayrı bir
+    onay kutusu gerektirir. Yalnızca <strong>mesaj metni</strong> paylaşılır;
+    telefon numaranız, adınız veya cihaz kimliğiniz eklenmez.
+  </p>
+</div>
+<p>
+  <strong>Şu anda bu metinler hiçbir yere gönderilmemektedir.</strong> Bağış
+  kuyruğu yalnızca cihazınızda birikir. Bir gönderim ucu devreye alınırsa bu
+  metin güncellenecek ve uygulama içinde yeniden onayınız istenecektir.
+</p>
+
+<h2>6. Verilerinizi silme</h2>
+<p>
+  <strong>Ayarlar › Saklanan mesajları sil</strong> ile Bekçi'nin kendi
+  kaydını tek dokunuşta silebilirsiniz. Uygulamayı kaldırdığınızda tüm
+  uygulama verisi cihazdan silinir. Telefonun sistem SMS deposundaki
+  mesajlar, başka bir mesaj uygulamasına geçtiğinizde orada kalmaya devam
+  eder — Bekçi onları silmez.
+</p>
+
+<h2>7. Çocuklar</h2>
+<p>
+  Bekçi 18 yaş altı kullanıcılara yönelik değildir ve çocuklardan bilerek
+  veri toplamaz.
+</p>
+
+<h2>8. KVKK kapsamında haklarınız</h2>
+<p>
+  6698 sayılı Kişisel Verilerin Korunması Kanunu size verilerinize erişme,
+  düzeltme, silme ve işlemeye itiraz etme hakkı verir. Bekçi hiçbir kişisel
+  veriyi kendi sistemlerine aktarmadığı için bu haklar pratikte cihazınız
+  üzerinden doğrudan kullanılabilir; yine de sorularınız için bize
+  yazabilirsiniz.
+</p>
+
+<h2>9. Bilinen sınırlar</h2>
+<div class="card warn">
+  <h3>Bekçi neleri yapmaz</h3>
+  <ul style="margin-bottom:0">
+    <li>Resimli mesaj (MMS) desteklemez. Geldiğinde bildirilir ama açılamaz.</li>
+    <li>RCS özellikleri (okundu bilgisi, yazıyor göstergesi) çalışmaz.</li>
+    <li>Hiçbir filtre kusursuz değildir. Bekçi bir mesajı yanlış
+        sınıflandırabilir; önemli mesajları düzenli kontrol edin.</li>
+  </ul>
+</div>
+
+<h2>10. Değişiklikler</h2>
+<p>
+  Bu metin güncellenirse üstteki tarih değişir. Veri kullanımını etkileyen
+  bir değişiklikte uygulama içinde yeniden onayınız istenir.
+</p>
+
+<h2>11. İletişim</h2>
+<p>
+  Sorularınız için: <a href="mailto:kvkk@bekci.app">kvkk@bekci.app</a>
+</p>
+
+<footer>
+  Bekçi · Türkçe SMS dolandırıcılık filtresi<br>
+  Bu sayfa uygulamanın Play Store ve App Store listelerinde gizlilik
+  politikası bağlantısı olarak kullanılır.
+</footer>
+
+</div>
+</body>
+</html>

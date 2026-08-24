@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDisplayName</key>
+    <string>Bekçi</string>
+    <key>CFBundleIdentifier</key>
+    <string>tr.bekci.app.filter</string>
+    <key>NSExtension</key>
+    <dict>
+        <key>NSExtensionPointIdentifier</key>
+        <string>com.apple.identitylookup.message-filter</string>
+        <key>NSExtensionPrincipalClass</key>
+        <string>$(PRODUCT_MODULE_NAME).MessageFilterExtension</string>
+        <!--
+          ILMessageFilterExtensionNetworkURL BİLİNÇLİ OLARAK YOK.
+          Bekçi hiçbir sorguyu ağa devretmez; sınıflandırma tamamen cihazda olur.
+          Eklenirse ayrıca Associated Domains (messagefilter:) yetkisi ve
+          sunucuda apple-app-site-association dosyası gerekir.
+        -->
+    </dict>
+</dict>
+</plist>

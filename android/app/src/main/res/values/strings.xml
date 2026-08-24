@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bekçi</string>
+    <string name="channel_fraud_name">Dolandırıcılık uyarıları</string>
+    <string name="channel_fraud_desc">Yüksek riskli mesaj geldiğinde anında bildirir.</string>
+</resources>

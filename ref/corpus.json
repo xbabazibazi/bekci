@@ -1,0 +1,248 @@
+[
+ {
+  "id": "banka-harcama",
+  "sender": "GARANTI",
+  "body": "Sayin musterimiz, 15/08/2026 14:32 tarihinde **4358 nolu kartinizdan MIGROS'ta 1.249,90 TL harcama yapilmistir. Bilgi: 444 0 333 B012",
+  "expect": "transaction"
+ },
+ {
+  "id": "banka-otp",
+  "sender": "AKBANK",
+  "body": "Dogrulama kodunuz: 481925. Bu kodu kimseyle paylasmayin. Islem tutari 250 TL.",
+  "expect": "transaction"
+ },
+ {
+  "id": "edevlet-otp",
+  "sender": "E-DEVLET",
+  "body": "e-Devlet giris dogrulama kodunuz: 725104",
+  "expect": "transaction"
+ },
+ {
+  "id": "kargo-teslim",
+  "sender": "YURTICIKARGO",
+  "body": "4728301992 takip numarali gonderiniz Kadikoy subemize ulasmistir. Kurye dagitima cikacaktir. B031",
+  "expect": "transaction"
+ },
+ {
+  "id": "operator-paket",
+  "sender": "TURKCELL",
+  "body": "Paketinizin 2,4 GB internet hakki kaldi. Kalan kullanim ve tarife detaylari icin 5555'i arayabilirsiniz. B001",
+  "expect": "transaction"
+ },
+ {
+  "id": "mhrs-randevu",
+  "sender": "MHRS",
+  "body": "18.08.2026 09:30 Kadikoy Devlet Hastanesi Dahiliye poliklinigi randevunuz olusturuldu. Iptal icin 182.",
+  "expect": "transaction"
+ },
+ {
+  "id": "kisa-numara-bilgi",
+  "sender": "5555",
+  "body": "Fatura tutariniz 349,90 TL olarak hesabiniza yansimistir. Son odeme tarihi 25.08.2026.",
+  "expect": "transaction"
+ },
+ {
+  "id": "kampanya-indirim",
+  "sender": "MEDIAMARKT",
+  "body": "Sepette %40'a varan indirim basladi! Firsatlari kacirma, hemen incele. Kampanya son gun. B045",
+  "expect": "promotion"
+ },
+ {
+  "id": "kampanya-kupon",
+  "sender": "TRENDYOL",
+  "body": "Sana ozel 150 TL hediye ceki tanimlandi! Kupon kodun: TY150. Sepette kullan, kargo bedava.",
+  "expect": "promotion"
+ },
+ {
+  "id": "sahte-icra",
+  "sender": "+90 850 304 11 22",
+  "body": "ICRA DAIRESI: Adiniza kayitli 18.450 TL borc icin haciz islemi baslatilmistir. 24 saat icinde odeme yapilmazsa mal varliginiza el konulacaktir. Detay: t.co/xkz2f",
+  "expect": "junk"
+ },
+ {
+  "id": "bahis-bonus",
+  "sender": "BONUS-VIP",
+  "body": "MERHABA! 1000TL DENEME BONUSU HESABINIZDA TANIMLANDI. CEVRIMSIZ CEKIM. GUNCEL GIRIS ADRESI: bet-xy7.co",
+  "expect": "junk"
+ },
+ {
+  "id": "sahte-kargo",
+  "sender": "+90 532 118 44 09",
+  "body": "Kargonuz adres bilgisi eksikligi nedeniyle teslim edilemedi. Guncelleme icin: bit.ly/kargo-guncelle",
+  "expect": "junk"
+ },
+ {
+  "id": "sahte-banka-link",
+  "sender": "+90 212 909 77 12",
+  "body": "Sayin musterimiz hesabiniz guvenlik nedeniyle kisitlanmistir. Acilen dogrulama yapiniz aksi halde hesabiniz kapatilacaktir: https://garanti-dogrulama.top/giris",
+  "expect": "junk"
+ },
+ {
+  "id": "kod-avcisi",
+  "sender": "+90 545 220 31 88",
+  "body": "Merhaba, size gonderilen dogrulama kodunu bana gonderir misiniz? Acil islem yapmam gerekiyor.",
+  "expect": "junk"
+ },
+ {
+  "id": "ip-adresi",
+  "sender": "+1 202 555 0134",
+  "body": "Odulunuzu almak icin hemen tiklayin http://185.220.101.44/odul son 24 saat",
+  "expect": "junk"
+ },
+ {
+  "id": "kripto-vaadi",
+  "sender": "CRYPTO-WIN",
+  "body": "GUNLUK %15 KAZANC GARANTILI! YATIRIM BONUSU + FREESPIN. HEMEN KAYIT OL: kripto-kazanc.xyz SINIRLI SURE!",
+  "expect": "junk"
+ },
+ {
+  "id": "kisisel-mesaj",
+  "sender": "+90 533 442 19 07",
+  "body": "Selam, aksam bulusalim mi?",
+  "expect": "none"
+ },
+ {
+  "id": "kisa-bilgi",
+  "sender": "+90 555 111 22 33",
+  "body": "Toplanti 15:00'e alindi.",
+  "expect": "none"
+ },
+ {
+  "id": "belirsiz-kurumsal",
+  "sender": "BILGI",
+  "body": "Talebiniz alinmistir. En kisa surede size donus yapilacaktir.",
+  "expect": "none"
+ },
+ {
+  "id": "gercek-icra-uyap",
+  "sender": "UYAP",
+  "body": "Adiniza kayitli dosya icin tebligat evraki hazirlanmistir. Detay icin e-Devlet uzerinden UYAP Vatandas Portali'ni kullaniniz. B007",
+  "expect": "transaction"
+ },
+ {
+  "id": "banka-borc-hatirlatma",
+  "sender": "YAPIKREDI",
+  "body": "Kredi kartinizin son odeme tarihi 20.08.2026'dir. Asgari odeme tutari 1.240,00 TL. Gecikmeden odeme yapmanizi rica ederiz. B012",
+  "expect": "transaction"
+ },
+ {
+  "id": "operator-fatura-link",
+  "sender": "TURKCELL",
+  "body": "Agustos faturaniz hazir: 289,90 TL. Detay icin turkcell.com.tr/fatura adresini ziyaret edebilirsiniz. B001",
+  "expect": "transaction"
+ },
+ {
+  "id": "trendyol-kampanya-link",
+  "sender": "TRENDYOL",
+  "body": "Sana ozel %50 indirim! Firsatlari kacirmayin, kampanya bugun son. ty.gl/x9 B045",
+  "expect": "promotion"
+ },
+ {
+  "id": "eczane-randevu",
+  "sender": "ENABIZ",
+  "body": "Recete numaraniz: 4A9C2. Eczaneden temin edebilirsiniz. Randevu ve tahlil sonuclari e-Nabiz'da.",
+  "expect": "transaction"
+ },
+ {
+  "id": "bankadan-uyari",
+  "sender": "GARANTI",
+  "body": "Sayin musterimiz, bankamiz sizden asla dogrulama kodu istemez. Suphe halinde 444 0 333'u arayin. B012",
+  "expect": "transaction"
+ },
+ {
+  "id": "vergi-son-gun",
+  "sender": "GIB",
+  "body": "Motorlu Tasitlar Vergisi 2. taksit son odeme gunu 31.08.2026. Odeme icin ivd.gib.gov.tr B003",
+  "expect": "transaction"
+ },
+ {
+  "id": "kisa-tesekkur",
+  "sender": "+90 534 887 21 44",
+  "body": "Tesekkurler, elime ulasti.",
+  "expect": "none"
+ },
+ {
+  "id": "sahte-edevlet",
+  "sender": "+90 850 622 91 03",
+  "body": "E-DEVLET: Adiniza kayitli bir islem tespit edildi. Hesabiniz kapatilacaktir, acilen dogrulayin: e-devlet-giris.icu/dogrula",
+  "expect": "junk"
+ },
+ {
+  "id": "sahte-odul",
+  "sender": "KAMPANYA",
+  "body": "TEBRIKLER! Cekilis sonucu ucretsiz iPhone kazandiniz. Odulunuzu almak icin son 24 saat: cutt.ly/odul2026",
+  "expect": "junk"
+ },
+ {
+  "id": "punycode",
+  "sender": "+90 543 776 22 18",
+  "body": "Hesabiniz askiya alindi. Guvenlik dogrulamasi icin: https://xn--grant-bbva-1nb.com/giris islem yapmazsaniz hesabiniz kapatilacaktir",
+  "expect": "junk"
+ },
+ {
+  "id": "yurtdisi-bahis",
+  "sender": "+44 7700 900123",
+  "body": "1500 TL DENEME BONUSU! CEVRIMSIZ. GUNCEL GIRIS: casino-vip.sbs HEMEN KATIL",
+  "expect": "junk"
+ },
+ {
+  "id": "otp-nbsp",
+  "sender": "+90 532 118 44 09",
+  "body": "Guvenlik kodunuz: 442113. Acilen girin, son uyari, aksi takdirde hesabiniz kapatilacak.",
+  "expect": "transaction"
+ },
+ {
+  "id": "bkod-turkce-bitisik",
+  "sender": "MIGROS",
+  "body": "Kazandiniz! Tebrikler, odulunuz var. Son uyari, acilen. Detay bit.ly/x ğB045",
+  "expect": "none"
+ },
+ {
+  "id": "otp-normal-rakam",
+  "sender": "AKBANK",
+  "body": "Dogrulama kodunuz 550341. Kimseyle paylasmayin.",
+  "expect": "transaction"
+ },
+ {
+  "id": "otp-satir-sonu",
+  "sender": "+90 212 909 77 12",
+  "body": "SAYIN MUSTERIMIZ, XYZ BANKASI ISLEM GUVENLIK KODUNUZ\n729104\nBU KODU KIMSEYLE PAYLASMAYIN. ISLEMI HEMEN ONAYLAYIN, SON KEZ.",
+  "expect": "transaction"
+ },
+ {
+  "id": "kod-avcisi-satir-sonu",
+  "sender": "+90 532 118 44 09",
+  "body": "Merhaba, size gelen dogrulama kodunu\nbize gonderin, hesabinizi biz aktive edecegiz.",
+  "expect": "junk"
+ },
+ {
+  "id": "shouting-bmp-disi",
+  "sender": "+90 532 118 44 09",
+  "body": "𝐓𝐄𝐁𝐑𝐈𝐊𝐋𝐄𝐑 𝐊𝐀𝐙𝐀𝐍𝐃𝐈𝐍𝐈𝐙 𝐁𝐔𝐘𝐔𝐊 𝐈𝐊𝐑𝐀𝐌𝐈𝐘𝐄 𝐇𝐄𝐌𝐄𝐍 𝐊𝐀𝐘𝐈𝐓 𝐎𝐋𝐔𝐍 𝐒𝐀𝐍𝐒𝐋𝐈 𝐆𝐔𝐍𝐔𝐍𝐔𝐙 bit.ly/x",
+  "expect": "none"
+ },
+ {
+  "id": "vishing-arama-tuzagi",
+  "sender": "+90 532 771 40 18",
+  "body": "Hesabinizdan supheli bir islem tespit edildi. Dogrulamak icin lutfen bu numarayi hemen arayin: 0850 224 19 33",
+  "expect": "none"
+ },
+ {
+  "id": "evlat-dolandiriciligi",
+  "sender": "+90 538 902 11 47",
+  "body": "Anne telefonum kirildi bu numaradan yaziyorum, bankaya gidemiyorum acil 4500 TL'ye ihtiyacim var, aksama gonderir misin IBAN'imi atiyorum",
+  "expect": "junk"
+ },
+ {
+  "id": "yatirim-whatsapp-yonlendirme",
+  "sender": "+90 544 903 27 61",
+  "body": "Borsa uzmanimizdan gunluk %8 kazanc firsati. Katilmak icin WhatsApp grubumuza yazin: wa.me/905449032761",
+  "expect": "junk"
+ },
+ {
+  "id": "is-firsati-telegram-yonlendirme",
+  "sender": "+90 542 118 22 09",
+  "body": "Gunluk 2500 TL kazanc firsati! Ev hanimlarina ozel is imkani. Detay icin Telegram'dan yazin: @kazancfirsati2026",
+  "expect": "none"
+ }
+]

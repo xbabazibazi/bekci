@@ -1,0 +1,116 @@
+# Bekçi iOS projesi — XcodeGen spec'i.
+#
+# NEDEN .xcodeproj DEPODA YOK: pbxproj dosyası elle bakımı zor, birleştirme
+# çakışmalarında okunamaz hâle gelen üretilmiş bir dosyadır. Bunun yerine
+# proje bu spec'ten üretilir; hedefler, yetkiler ve App Group tek bir
+# okunabilir dosyada durur.
+#
+# Kurulum (Mac'te, bir kez):
+#     brew install xcodegen
+#
+# Proje üretmek (ios/ dizininde):
+#     xcodegen generate && open Bekci.xcodeproj
+#
+# Motoru Xcode'suz test etmek:
+#     cd BekciCore && swift test
+
+name: Bekci
+options:
+  bundleIdPrefix: tr.bekci
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    # İki platform aynı sürümde ilerler; Android tarafı
+    # `android/app/build.gradle.kts` içindeki versionName/versionCode.
+    MARKETING_VERSION: "0.4.0"
+    CURRENT_PROJECT_VERSION: "7"
+    SWIFT_VERSION: "5.9"
+    DEVELOPMENT_TEAM: ""          # Xcode'da Signing & Capabilities'ten doldurun
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    SWIFT_STRICT_CONCURRENCY: complete
+
+packages:
+  # Motor yerel bir Swift paketi: hem uygulama hem uzantı aynı ikiliyi
+  # kullanır, böylece iki taraf asla ayrışmaz.
+  BekciCore:
+    path: BekciCore
+
+targets:
+
+  # ── Uygulama ──────────────────────────────────────────────────────
+  Bekci:
+    type: application
+    platform: iOS
+    sources:
+      - path: BekciApp
+      # RuleStore HER İKİ hedefte de derlenmeli: uygulama yazar, uzantı
+      # okur. Apple, filtre uzantısının paylaşılan konteynere yazmasına
+      # izin vermediği için akış tek yönlüdür.
+      - path: BekciFilter/RuleStore.swift
+    dependencies:
+      - package: BekciCore
+      - target: BekciFilter
+        embed: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: tr.bekci.app
+        INFOPLIST_KEY_CFBundleDisplayName: Bekçi
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        # Arayüz yalnızca Türkçe; sistem dili ne olursa olsun tutarlı görünsün.
+        INFOPLIST_KEY_CFBundleDevelopmentRegion: tr
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    info:
+      path: BekciApp/Info.plist
+      properties:
+        # Bekçi kendi şifreleme algoritması içermez; yalnızca iOS'un
+        # standart dosya korumasını kullanır. Bu anahtar olmadan her
+        # App Store gönderiminde şifreleme beyanı elle sorulur.
+        ITSAppUsesNonExemptEncryption: false
+    entitlements:
+      path: BekciApp/Bekci.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.tr.bekci.shared
+
+  # ── Mesaj filtresi uzantısı ───────────────────────────────────────
+  BekciFilter:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: BekciFilter
+    dependencies:
+      - package: BekciCore
+    info:
+      path: BekciFilter/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: tr.bekci.app.filter
+        INFOPLIST_FILE: BekciFilter/Info.plist
+    entitlements:
+      path: BekciFilter/BekciFilter.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.tr.bekci.shared
+
+schemes:
+  Bekci:
+    build:
+      targets:
+        Bekci: all
+        BekciFilter: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      # Motorun altın küme testleri paketin kendi test hedefindedir;
+      # `swift test` ile Xcode'suz da koşulabilir.
+      targets:
+        - package: BekciCore/BekciCoreTests
+    archive:
+      config: Release
