@@ -10,8 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -112,18 +114,17 @@ enum class ThemeMode(val raw: String, val title: String) {
 /**
  * Taban büyüklükler bir kez daha büyütüldü (2026-08-24): gövde/altyazı
  * metni gerçek cihazda hâlâ "okunmuyor" bulundu. Bu artık HERKESTE
- * geçerli taban — `TextScale.STANDARD` bu değerlerin ta kendisi, Pro'nun
- * Büyük/Çok büyük seçenekleri bunun üstüne çarpan uyguluyor.
+ * geçerli taban.
  */
-private fun typography(scale: Float) = Typography(
-    displayLarge = TextStyle(fontSize = (30 * scale).sp, fontWeight = FontWeight.Bold, letterSpacing = (-1.1).sp),
-    headlineMedium = TextStyle(fontSize = (28 * scale).sp, fontWeight = FontWeight.Bold, letterSpacing = (-0.9).sp),
-    titleMedium = TextStyle(fontSize = (19 * scale).sp, fontWeight = FontWeight.SemiBold),
-    bodyLarge = TextStyle(fontSize = (17 * scale).sp, fontWeight = FontWeight.Medium),
-    bodyMedium = TextStyle(fontSize = (15.5f * scale).sp, lineHeight = (21 * scale).sp, fontWeight = FontWeight.Medium),
-    labelLarge = TextStyle(fontSize = (16.5f * scale).sp, fontWeight = FontWeight.SemiBold),
-    labelMedium = TextStyle(fontSize = (14.5f * scale).sp, fontWeight = FontWeight.Medium),
-    labelSmall = TextStyle(fontSize = (11 * scale).sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp),
+private val BekciTypography = Typography(
+    displayLarge = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Bold, letterSpacing = (-1.1).sp),
+    headlineMedium = TextStyle(fontSize = 28.sp, fontWeight = FontWeight.Bold, letterSpacing = (-0.9).sp),
+    titleMedium = TextStyle(fontSize = 19.sp, fontWeight = FontWeight.SemiBold),
+    bodyLarge = TextStyle(fontSize = 17.sp, fontWeight = FontWeight.Medium),
+    bodyMedium = TextStyle(fontSize = 15.5.sp, lineHeight = 21.sp, fontWeight = FontWeight.Medium),
+    labelLarge = TextStyle(fontSize = 16.5.sp, fontWeight = FontWeight.SemiBold),
+    labelMedium = TextStyle(fontSize = 14.5.sp, fontWeight = FontWeight.Medium),
+    labelSmall = TextStyle(fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp),
 )
 
 @Composable
@@ -150,7 +151,19 @@ fun BekciTheme(
         )
     }
 
-    CompositionLocalProvider(LocalBekciColors provides colors) {
-        MaterialTheme(colorScheme = scheme, typography = typography(textScale.factor), content = content)
+    // Yazı boyutu çarpanı `MaterialTheme.typography` yerine `LocalDensity`
+    // üzerinden uygulanıyor. Sebep: `ConversationRow` gibi birçok yerde
+    // `fontSize = 14.sp` gibi SABİT değerler var, bunlar typography'den
+    // gelmiyor. Android'de her `.sp`, çizim anında `Density.fontScale`
+    // ile çözülür — bunu değiştirmek typography'ye BAKMAKSIZIN ağaçtaki
+    // TÜM metni büyütür (sistemin kendi "yazı boyutu" ayarıyla aynı mekanizma).
+    val baseDensity = LocalDensity.current
+    val scaledDensity = Density(baseDensity.density, baseDensity.fontScale * textScale.factor)
+
+    CompositionLocalProvider(
+        LocalBekciColors provides colors,
+        LocalDensity provides scaledDensity,
+    ) {
+        MaterialTheme(colorScheme = scheme, typography = BekciTypography, content = content)
     }
 }
