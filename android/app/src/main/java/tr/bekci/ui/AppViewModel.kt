@@ -24,6 +24,8 @@ import tr.bekci.data.SmsProvider
 import tr.bekci.data.StoredMessage
 import tr.bekci.sms.SmsRole
 import tr.bekci.sms.notifyMessage
+import tr.bekci.ui.theme.TextScale
+import tr.bekci.ui.theme.ThemeMode
 
 enum class InboxFilter(val title: String) {
     ALL("Tümü"), FINANCE("Finans"), ORDERS("Kargo"),
@@ -56,6 +58,10 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     var isPro by mutableStateOf(prefs.isPro())
         private set
     var fraudNotifications by mutableStateOf(prefs.fraudNotifications())
+        private set
+    var textScale by mutableStateOf(prefs.textScale())
+        private set
+    var themeMode by mutableStateOf(prefs.themeMode())
         private set
     var falsePositives by mutableStateOf(prefs.falsePositives())
         private set
@@ -292,6 +298,24 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             )
         }
         return true
+    }
+
+    /**
+     * Yazı boyutu ve tema seçimi (Pro). Ücretsiz kullanıcıda çağrı sessizce
+     * yok sayılır — arayüz zaten seçiciyi Pro değilken göstermiyor, ama
+     * fonksiyonun kendisi de garanti veriyor: hiçbir yoldan ücretsizde
+     * taban dışı bir değer kalıcı olamaz.
+     */
+    fun chooseTextScale(value: TextScale) {
+        if (!isPro) return
+        prefs.setTextScale(value)
+        textScale = value
+    }
+
+    fun chooseThemeMode(value: ThemeMode) {
+        if (!isPro) return
+        prefs.setThemeMode(value)
+        themeMode = value
     }
 
     /**

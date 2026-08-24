@@ -5,9 +5,9 @@
 
 | | |
 |---|---|
-| Sürüm | 0.4.2 (versionCode 9) |
-| Yayın paketi | `dagitim/bekci-0.4.2.aab` |
-| Yan yükleme APK'sı | `dagitim/bekci-0.4.2.apk` |
+| Sürüm | 0.4.3 (versionCode 10) |
+| Yayın paketi | `dagitim/bekci-0.4.3.aab` |
+| Yan yükleme APK'sı | `dagitim/bekci-0.4.3.apk` |
 | Uygulama kimliği | `tr.bekci` |
 | minSdk / targetSdk | 26 / 35 |
 

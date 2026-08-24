@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.padding
@@ -36,6 +37,7 @@ import tr.bekci.ui.InboxFilter
 import tr.bekci.ui.screens.*
 import tr.bekci.ui.theme.Bekci
 import tr.bekci.ui.theme.BekciTheme
+import tr.bekci.ui.theme.ThemeMode
 
 class BekciApplication : Application() {
     override fun onCreate() {
@@ -62,7 +64,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pendingThreadId.value = threadIdFrom(intent)
-        setContent { BekciTheme { BekciApp(pendingThreadId) } }
+        setContent {
+            val vm: AppViewModel = viewModel()
+            // Elle tema seçimi (Pro) sistemi ezer; ücretsizde/varsayılanda
+            // `ThemeMode.SYSTEM` zaten `isSystemInDarkTheme()`e eşdeğer.
+            val darkTheme = when (vm.themeMode) {
+                ThemeMode.SYSTEM -> isSystemInDarkTheme()
+                ThemeMode.LIGHT -> false
+                ThemeMode.DARK -> true
+            }
+            BekciTheme(darkTheme = darkTheme, textScale = vm.textScale) {
+                BekciApp(pendingThreadId, vm)
+            }
+        }
     }
 
     override fun onNewIntent(intent: Intent) {

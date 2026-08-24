@@ -31,8 +31,8 @@ android {
         // `versionCode` Play'in sıralama için kullandığı tam sayıdır ve
         // ASLA azalamaz/tekrarlanamaz; `versionName` kullanıcının gördüğü
         // metindir ve Ayarlar'da BuildConfig üzerinden okunur.
-        versionCode = 9
-        versionName = "0.4.2"
+        versionCode = 10
+        versionName = "0.4.3"
     }
 
     signingConfigs {

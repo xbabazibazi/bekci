@@ -35,6 +35,8 @@ import tr.bekci.ui.AppViewModel
 import tr.bekci.ui.InboxFilter
 import tr.bekci.ui.components.*
 import tr.bekci.ui.theme.Bekci
+import tr.bekci.ui.theme.TextScale
+import tr.bekci.ui.theme.ThemeMode
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -783,6 +785,9 @@ private fun ColumnScope.RuleList(
 
 @Composable
 fun SettingsScreen(vm: AppViewModel, onRoute: (String) -> Unit) {
+    var showTextScaleDialog by remember { mutableStateOf(false) }
+    var showThemeDialog by remember { mutableStateOf(false) }
+
     LazyColumn(Modifier.fillMaxSize().background(Bekci.colors.paper)) {
         item {
             Text("Ayarlar", style = MaterialTheme.typography.headlineMedium, color = Bekci.colors.text,
@@ -864,6 +869,37 @@ fun SettingsScreen(vm: AppViewModel, onRoute: (String) -> Unit) {
             }
         }
 
+        item { SectionLabel("Görünüm") }
+        item {
+            BekciCard {
+                SettingRow(
+                    icon = {
+                        Icon(
+                            if (vm.isPro) Icons.Outlined.FormatSize else Icons.Filled.Lock, null,
+                            tint = if (vm.isPro) Bekci.colors.text2 else Bekci.colors.amber,
+                            modifier = Modifier.size(17.dp),
+                        )
+                    },
+                    title = "Yazı boyutu",
+                    value = if (vm.isPro) vm.textScale.title else "PRO",
+                    onClick = { if (vm.isPro) showTextScaleDialog = true else onRoute("paywall") },
+                )
+                HorizontalDivider(Modifier.padding(start = 59.dp), color = Bekci.colors.line)
+                SettingRow(
+                    icon = {
+                        Icon(
+                            if (vm.isPro) Icons.Outlined.Contrast else Icons.Filled.Lock, null,
+                            tint = if (vm.isPro) Bekci.colors.text2 else Bekci.colors.amber,
+                            modifier = Modifier.size(17.dp),
+                        )
+                    },
+                    title = "Tema",
+                    value = if (vm.isPro) vm.themeMode.title else "PRO",
+                    onClick = { if (vm.isPro) showThemeDialog = true else onRoute("paywall") },
+                )
+            }
+        }
+
         item { SectionLabel("Gizlilik") }
         item {
             BekciCard {
@@ -940,5 +976,57 @@ fun SettingsScreen(vm: AppViewModel, onRoute: (String) -> Unit) {
                 modifier = Modifier.fillMaxWidth().padding(vertical = 22.dp),
             )
         }
+    }
+
+    if (showTextScaleDialog) {
+        AlertDialog(
+            onDismissRequest = { showTextScaleDialog = false },
+            title = { Text("Yazı boyutu") },
+            text = {
+                Column {
+                    TextScale.entries.forEach { option ->
+                        SettingRow(
+                            icon = {},
+                            title = option.title,
+                            trailing = {
+                                if (vm.textScale == option) {
+                                    Icon(Icons.Filled.Check, null, tint = Bekci.colors.guard, modifier = Modifier.size(18.dp))
+                                }
+                            },
+                            onClick = { vm.chooseTextScale(option); showTextScaleDialog = false },
+                        )
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton({ showTextScaleDialog = false }) { Text("Kapat") }
+            },
+        )
+    }
+
+    if (showThemeDialog) {
+        AlertDialog(
+            onDismissRequest = { showThemeDialog = false },
+            title = { Text("Tema") },
+            text = {
+                Column {
+                    ThemeMode.entries.forEach { option ->
+                        SettingRow(
+                            icon = {},
+                            title = option.title,
+                            trailing = {
+                                if (vm.themeMode == option) {
+                                    Icon(Icons.Filled.Check, null, tint = Bekci.colors.guard, modifier = Modifier.size(18.dp))
+                                }
+                            },
+                            onClick = { vm.chooseThemeMode(option); showThemeDialog = false },
+                        )
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton({ showThemeDialog = false }) { Text("Kapat") }
+            },
+        )
     }
 }

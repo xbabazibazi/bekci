@@ -15,6 +15,8 @@ import tr.bekci.core.SenderKind
 import tr.bekci.core.Sensitivity
 import tr.bekci.core.UserRules
 import tr.bekci.core.Verdict
+import tr.bekci.ui.theme.TextScale
+import tr.bekci.ui.theme.ThemeMode
 import java.util.UUID
 
 private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
@@ -146,6 +148,15 @@ class Prefs(context: Context) {
         .putInt("consentVersion", version)
         .putLong("consentAt", System.currentTimeMillis())
         .apply()
+
+    /** Yazı boyutu ve tema seçimi (Pro). Ücretsizde her ikisi de taban değerde kalır. */
+    fun textScale(): TextScale =
+        TextScale.entries.firstOrNull { it.raw == prefs.getString("textScale", null) } ?: TextScale.STANDARD
+    fun setTextScale(value: TextScale) = prefs.edit().putString("textScale", value.raw).apply()
+
+    fun themeMode(): ThemeMode =
+        ThemeMode.entries.firstOrNull { it.raw == prefs.getString("themeMode", null) } ?: ThemeMode.SYSTEM
+    fun setThemeMode(value: ThemeMode) = prefs.edit().putString("themeMode", value.raw).apply()
 }
 
 // ── Mesajlar ────────────────────────────────────────────────────────

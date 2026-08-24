@@ -91,23 +91,45 @@ object Bekci {
     val shapeMedium = RoundedCornerShape(16.dp)
 }
 
-// bodyLarge/bodyMedium önceden fontWeight belirtmiyordu (varsayılan Normal/
-// İnce), en çok okunan gövde/altyazı metni bu ikisiydi — "okunmuyor"
-// şikayeti buradan geliyordu. Medium'a çekildi + 0.5sp büyütüldü.
-private val BekciTypography = Typography(
-    displayLarge = TextStyle(fontSize = 29.sp, fontWeight = FontWeight.Bold, letterSpacing = (-1.1).sp),
-    headlineMedium = TextStyle(fontSize = 27.sp, fontWeight = FontWeight.Bold, letterSpacing = (-0.9).sp),
-    titleMedium = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.SemiBold),
-    bodyLarge = TextStyle(fontSize = 15.5.sp, fontWeight = FontWeight.Medium),
-    bodyMedium = TextStyle(fontSize = 13.5.sp, lineHeight = 19.sp, fontWeight = FontWeight.Medium),
-    labelLarge = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
-    labelMedium = TextStyle(fontSize = 13.sp, fontWeight = FontWeight.Medium),
-    labelSmall = TextStyle(fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.3.sp),
+/**
+ * Yazı boyutu tercihi (Pro). `factor` taban büyüklüklere çarpan olarak
+ * uygulanır — sabit sp eklemek yerine oranlı büyütmek, küçük/büyük
+ * stillerin birbirine göre oranını (ör. başlık/altyazı farkı) korur.
+ */
+enum class TextScale(val raw: String, val factor: Float, val title: String) {
+    STANDARD("standard", 1f, "Standart"),
+    LARGE("large", 1.15f, "Büyük"),
+    XLARGE("xlarge", 1.3f, "Çok büyük");
+}
+
+/** Elle tema seçimi (Pro). Varsayılan her zaman sistemi izler. */
+enum class ThemeMode(val raw: String, val title: String) {
+    SYSTEM("system", "Sistemi izle"),
+    LIGHT("light", "Açık"),
+    DARK("dark", "Koyu");
+}
+
+/**
+ * Taban büyüklükler bir kez daha büyütüldü (2026-08-24): gövde/altyazı
+ * metni gerçek cihazda hâlâ "okunmuyor" bulundu. Bu artık HERKESTE
+ * geçerli taban — `TextScale.STANDARD` bu değerlerin ta kendisi, Pro'nun
+ * Büyük/Çok büyük seçenekleri bunun üstüne çarpan uyguluyor.
+ */
+private fun typography(scale: Float) = Typography(
+    displayLarge = TextStyle(fontSize = (30 * scale).sp, fontWeight = FontWeight.Bold, letterSpacing = (-1.1).sp),
+    headlineMedium = TextStyle(fontSize = (28 * scale).sp, fontWeight = FontWeight.Bold, letterSpacing = (-0.9).sp),
+    titleMedium = TextStyle(fontSize = (19 * scale).sp, fontWeight = FontWeight.SemiBold),
+    bodyLarge = TextStyle(fontSize = (17 * scale).sp, fontWeight = FontWeight.Medium),
+    bodyMedium = TextStyle(fontSize = (15.5f * scale).sp, lineHeight = (21 * scale).sp, fontWeight = FontWeight.Medium),
+    labelLarge = TextStyle(fontSize = (16.5f * scale).sp, fontWeight = FontWeight.SemiBold),
+    labelMedium = TextStyle(fontSize = (14.5f * scale).sp, fontWeight = FontWeight.Medium),
+    labelSmall = TextStyle(fontSize = (11 * scale).sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp),
 )
 
 @Composable
 fun BekciTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
+    textScale: TextScale = TextScale.STANDARD,
     content: @Composable () -> Unit,
 ) {
     val colors = if (darkTheme) DarkColors else LightColors
@@ -129,6 +151,6 @@ fun BekciTheme(
     }
 
     CompositionLocalProvider(LocalBekciColors provides colors) {
-        MaterialTheme(colorScheme = scheme, typography = BekciTypography, content = content)
+        MaterialTheme(colorScheme = scheme, typography = typography(textScale.factor), content = content)
     }
 }

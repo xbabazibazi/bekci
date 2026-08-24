@@ -291,6 +291,7 @@ fun PaywallScreen(vm: AppViewModel, onDone: () -> Unit) {
                 ProFeature("Motorun bulduğu tüm sinyaller", "Baş gerekçe her zaman ücretsiz gösterilir, tam döküm + risk skoru Pro'da")
                 ProFeature("Haftalık/aylık dolandırıcılık raporu", "Trend grafiği ve en çok engellenen gönderenler")
                 ProFeature("Kuralları yedekle ve paylaş", "Yeni telefona veya bir aile üyesine — sunucu olmadan, dosya olarak")
+                ProFeature("Yazı boyutu ve tema", "Standart/Büyük/Çok büyük, açık/koyu/sistem")
                 ProFeature("Öncelikli destek", "Sorularınız önce yanıtlanır")
 
                 Spacer(Modifier.height(16.dp))
