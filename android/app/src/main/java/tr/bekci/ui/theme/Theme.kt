@@ -58,7 +58,10 @@ data class BekciColors(
 
 private val LightColors = BekciColors(
     paper = Paper, card = Color.White, line = Ink.copy(alpha = 0.10f),
-    text = Ink, text2 = Color(0xFF5D584F), text3 = Color(0xFF8B8578),
+    // text3 önceden 0xFF8B8578'di — beyaz kart üzerinde WCAG AA eşiğinin
+    // (4.5:1) belirgin altında kalıyordu (~2.6:1) ve altyazı/önizleme gibi
+    // asıl bilgi taşıyan metinlerde okunurluk şikayetine yol açtı. Koyulaştırıldı.
+    text = Ink, text2 = Color(0xFF5D584F), text3 = Color(0xFF6E6960),
     guard = Guard, guardSoft = Color(0xFFE4EFE9),
     signal = Signal, signalSoft = Color(0xFFF8E7E4),
     amber = Amber, amberSoft = Color(0xFFF8EFDD),
@@ -88,14 +91,17 @@ object Bekci {
     val shapeMedium = RoundedCornerShape(16.dp)
 }
 
+// bodyLarge/bodyMedium önceden fontWeight belirtmiyordu (varsayılan Normal/
+// İnce), en çok okunan gövde/altyazı metni bu ikisiydi — "okunmuyor"
+// şikayeti buradan geliyordu. Medium'a çekildi + 0.5sp büyütüldü.
 private val BekciTypography = Typography(
     displayLarge = TextStyle(fontSize = 29.sp, fontWeight = FontWeight.Bold, letterSpacing = (-1.1).sp),
     headlineMedium = TextStyle(fontSize = 27.sp, fontWeight = FontWeight.Bold, letterSpacing = (-0.9).sp),
     titleMedium = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.SemiBold),
-    bodyLarge = TextStyle(fontSize = 15.sp),
-    bodyMedium = TextStyle(fontSize = 13.sp, lineHeight = 18.sp),
-    labelLarge = TextStyle(fontSize = 14.5.sp, fontWeight = FontWeight.SemiBold),
-    labelMedium = TextStyle(fontSize = 12.5.sp, fontWeight = FontWeight.Medium),
+    bodyLarge = TextStyle(fontSize = 15.5.sp, fontWeight = FontWeight.Medium),
+    bodyMedium = TextStyle(fontSize = 13.5.sp, lineHeight = 19.sp, fontWeight = FontWeight.Medium),
+    labelLarge = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.SemiBold),
+    labelMedium = TextStyle(fontSize = 13.sp, fontWeight = FontWeight.Medium),
     labelSmall = TextStyle(fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.3.sp),
 )
 
