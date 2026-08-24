@@ -93,10 +93,14 @@ SMS içeriği ve kullanıcı kuralları, `EncryptedSharedPreferences` ile
 
 ## 3. Mağaza listesi (Türkçe)
 
-**Uygulama adı (30):** `Bekçi — SMS Dolandırıcılık Filtresi`
+**Uygulama adı (30 karakter sınırı, kullanılan: 30):**
+`Bekçi — SMS Dolandırıcı Filtre`
 
-**Kısa açıklama (80):**
-`Sahte icra, bahis ve banka taklidi SMS'leri tanır. Sunucu yok, her şey telefonunuzda.`
+**Kısa açıklama (80 karakter sınırı, kullanılan: 79):**
+`Sahte icra, bahis ve banka taklidi SMS'leri tanır. Her şey telefonunuzda kalır.`
+
+> Önceki taslaklar (35 ve 85 karakter) Play'in sınırlarını aşıyordu —
+> Play Console'a girerken kırpılır/hata verirdi. 2026-08-24'te düzeltildi.
 
 **Tam açıklama:**
 
