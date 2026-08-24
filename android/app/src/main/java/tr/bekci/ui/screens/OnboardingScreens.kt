@@ -178,7 +178,7 @@ private fun Step(number: Int, done: Boolean, title: String, detail: String, path
             path?.let {
                 Text(it, fontSize = 11.5.sp, fontWeight = FontWeight.SemiBold, color = Bekci.colors.text,
                     modifier = Modifier.padding(top = 7.dp).clip(RoundedCornerShape(7.dp))
-                        .background(Bekci.colors.line.copy(alpha = 0.6f))
+                        .background(Bekci.colors.chip)
                         .padding(horizontal = 9.dp, vertical = 5.dp))
             }
         }

@@ -767,7 +767,7 @@ private fun ColumnScope.RuleList(
                 Text(subtitle, fontSize = 11.5.sp, color = Bekci.colors.text3)
             }
             Box(Modifier.size(26.dp).clip(CircleShape)
-                .background(Bekci.colors.line.copy(alpha = 0.6f))
+                .background(Bekci.colors.chip)
                 .clickable { onRemove(key) }, contentAlignment = Alignment.Center) {
                 Icon(Icons.Filled.Close, "Kaldır", tint = Bekci.colors.text3,
                     modifier = Modifier.size(13.dp))

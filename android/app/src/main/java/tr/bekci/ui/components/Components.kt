@@ -268,7 +268,7 @@ fun SettingRow(
     ) {
         Box(
             Modifier.size(30.dp).clip(RoundedCornerShape(9.dp))
-                .background(Bekci.colors.line.copy(alpha = 0.6f)),
+                .background(Bekci.colors.chip),
             contentAlignment = Alignment.Center,
         ) { icon() }
 

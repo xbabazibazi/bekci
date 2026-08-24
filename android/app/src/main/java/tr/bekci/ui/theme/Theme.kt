@@ -44,6 +44,16 @@ data class BekciColors(
     val guard: Color, val guardSoft: Color,
     val signal: Color, val signalSoft: Color,
     val amber: Color, val amberSoft: Color,
+    /**
+     * Satır ikonlarının arkasındaki nötr daire/kapsül rengi. Önceden
+     * `line.copy(alpha = 0.6f)` kullanılıyordu — ama `Color.copy(alpha=)`
+     * mevcut alfayı ÇARPMAZ, TAMAMEN DEĞİŞTİRİR. `line` aydınlık temada
+     * neredeyse siyah bir renk üzerine %10 alfa taşıyor; `.copy(alpha=0.6f)`
+     * bu %10'u atıp %60'a zorluyor ve ikon arkası koyu gri/siyah çıkıyordu.
+     * Koyu temada `line` beyaz olduğu için aynı hata görünmüyordu. Artık
+     * her iki tema için ayrı ayrı doğru tasarlanmış, sabit bir renk.
+     */
+    val chip: Color,
 )
 
 private val LightColors = BekciColors(
@@ -52,6 +62,7 @@ private val LightColors = BekciColors(
     guard = Guard, guardSoft = Color(0xFFE4EFE9),
     signal = Signal, signalSoft = Color(0xFFF8E7E4),
     amber = Amber, amberSoft = Color(0xFFF8EFDD),
+    chip = Color(0xFFECE9E2),
 )
 
 private val DarkColors = BekciColors(
@@ -60,6 +71,7 @@ private val DarkColors = BekciColors(
     guard = GuardDark, guardSoft = Color(0xFF14301F),
     signal = SignalDark, signalSoft = Color(0xFF331A16),
     amber = AmberDark, amberSoft = Color(0xFF302511),
+    chip = Color(0xFF232B36),
 )
 
 val LocalBekciColors = staticCompositionLocalOf { LightColors }
