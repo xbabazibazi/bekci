@@ -27,3 +27,9 @@ __pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
+.idea/
+
+# ── Mağaza görselleri: gerçek cihaz ekran görüntüleri kasıtlı olarak
+# depoya girmiyor (redaksiyon hatası riskiyle public repoda kalmasın),
+# Play Console'a doğrudan diskten yüklenir.
+store/screenshots/
