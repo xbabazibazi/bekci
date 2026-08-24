@@ -195,7 +195,16 @@ yönelik değil, "Designed for Families" programına girmemeli.
 
 **Gizlilik politikası URL'i: ZORUNLU.** Uygulama içindeki metin
 (`PrivacyScreen`) yeterli değildir, barındırılan bir sayfa gerekir.
-Metnin kendisi hazır, yayına alınmalı.
+Kaynak dosya artık `docs/index.html` (repo kökünde, GitHub Pages `main`
+dalı `/docs` klasörü olarak yayınlanacak şekilde taşındı). Yayın adresi:
+
+```
+https://xbabazibazi.github.io/bekci/
+```
+
+Pages henüz repo ayarlarından ELLE açılmadı — GitHub'da Settings › Pages ›
+Source: "Deploy from a branch" › Branch: `main` / `docs` seçilmeli (tek
+seferlik, ~1 dakika sürer, birkaç dakika içinde adres canlı olur).
 
 **Export compliance:** Bekçi kendi şifreleme algoritması içermez;
 yalnızca platformun standart API'lerini kullanır.
