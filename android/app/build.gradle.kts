@@ -21,18 +21,21 @@ val hasSigningKey = keystoreProperties.containsKey("storeFile")
 
 android {
     namespace = "tr.bekci"
-    compileSdk = 35
+    // Play, 31 Ağu 2026'dan itibaren hedef API'nin en güncel Android
+    // sürümünün en fazla 1 yıl gerisinde olmasını zorunlu kılıyor.
+    // Android 15 (35) bu sınırı aştı, 16 (36) gerekiyordu.
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "tr.bekci"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         // SÜRÜM KURALI: her yayınlanan derlemede ikisi de artar.
         // `versionCode` Play'in sıralama için kullandığı tam sayıdır ve
         // ASLA azalamaz/tekrarlanamaz; `versionName` kullanıcının gördüğü
         // metindir ve Ayarlar'da BuildConfig üzerinden okunur.
-        versionCode = 11
-        versionName = "0.4.4"
+        versionCode = 12
+        versionName = "0.4.5"
     }
 
     signingConfigs {
