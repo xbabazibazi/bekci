@@ -5,9 +5,9 @@
 
 | | |
 |---|---|
-| Sürüm | 0.4.5 (versionCode 12) |
-| Yayın paketi | `dagitim/bekci-0.4.5.aab` |
-| Yan yükleme APK'sı | `dagitim/bekci-0.4.5.apk` |
+| Sürüm | 0.4.6 (versionCode 13) |
+| Yayın paketi | `dagitim/bekci-0.4.6.aab` |
+| Yan yükleme APK'sı | `dagitim/bekci-0.4.6.apk` |
 | Hedef API | 36 (Android 16) — AGP 8.9.1 gerekiyordu |
 | Uygulama kimliği | `tr.bekci` |
 | minSdk / targetSdk | 26 / 35 |
