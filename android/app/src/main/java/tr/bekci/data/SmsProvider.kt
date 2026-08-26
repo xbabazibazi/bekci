@@ -189,15 +189,33 @@ class SmsProvider(private val context: Context) {
      *
      * Bildirim adedi değil MESAJ adedi sayılır: aynı kişiden üç mesaj
      * geldiğinde tek bildirim görünür ama rozette 3 yazmalı.
+     *
+     * SPAM SAYILMAZ. Spam konuşmalar bilerek "sessiz" (bildirim yok,
+     * yalnızca akşam özeti) ve kullanıcı onları hiç açmadığı için sistem
+     * sağlayıcısında yıllarca okunmamış kalabilir — eskiden bunlar da
+     * sayılıyordu, yani tek bir normal mesaj gelince rozette birikmiş
+     * spam dahil TOPLAM (ör. 30) çıkıyordu. Rozet yalnızca gerçekten
+     * dikkat gerektiren (spam olmayan) mesajları yansıtmalı.
      */
     fun unreadCount(): Int = runCatching {
+        val classifier = Classifier(RuleStore(context).load())
+        var count = 0
         context.contentResolver.query(
             Telephony.Sms.CONTENT_URI,
-            arrayOf(Telephony.Sms._ID),
+            arrayOf(Telephony.Sms.ADDRESS, Telephony.Sms.BODY),
             "${Telephony.Sms.READ} = 0 AND ${Telephony.Sms.TYPE} = ?",
             arrayOf(Telephony.Sms.MESSAGE_TYPE_INBOX.toString()),
             null,
-        )?.use { it.count } ?: 0
+        )?.use { cursor ->
+            val address = cursor.getColumnIndexOrThrow(Telephony.Sms.ADDRESS)
+            val body = cursor.getColumnIndexOrThrow(Telephony.Sms.BODY)
+            while (cursor.moveToNext()) {
+                val from = cursor.getString(address).orEmpty()
+                val text = cursor.getString(body).orEmpty()
+                if (classifier.classify(from, text).action != FilterAction.JUNK) count++
+            }
+        }
+        count
     }.getOrDefault(0)
 
     /**
