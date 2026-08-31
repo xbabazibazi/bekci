@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.ui.draw.clip
 import androidx.compose.material3.MaterialTheme
@@ -146,11 +147,15 @@ private fun Bubble(message: ThreadMessage) {
                 .background(if (message.outgoing) Bekci.colors.guard else Bekci.colors.card)
                 .padding(horizontal = 13.dp, vertical = 9.dp),
         ) {
-            Text(
-                message.body, fontSize = 13.5.sp, lineHeight = 19.sp,
-                color = if (message.outgoing) androidx.compose.ui.graphics.Color.White
-                else Bekci.colors.text,
-            )
+            // Doğrulama kodu gibi metinlerin kopyalanabilmesi şart —
+            // SelectionContainer olmadan uzun basma hiçbir şey yapmıyordu.
+            SelectionContainer {
+                Text(
+                    message.body, fontSize = 13.5.sp, lineHeight = 19.sp,
+                    color = if (message.outgoing) androidx.compose.ui.graphics.Color.White
+                    else Bekci.colors.text,
+                )
+            }
             Text(
                 SimpleDateFormat("d MMM HH:mm", Locale("tr")).format(Date(message.at)),
                 fontSize = 9.5.sp, fontWeight = FontWeight.Medium,
